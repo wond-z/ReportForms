@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,17 +13,86 @@
     <script src="./dist/plugins/js/plugin.js"></script>
     <script src="./dist/luckysheet.umd.js"></script>
     <script src="./dist/luckyexcel.umd.js"></script>
+    <style>
+        .lucky-mask-demo {
+            position: absolute;
+            z-index: 1000000;left: 0px;
+            top: 0px;bottom: 0px;
+            right: 0px;
+            background: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-size: 40px;
+            align-items:center;
+            justify-content: center;
+            display: none;
+        }
+        .sheet {
+            margin:0px;
+            padding:0px;
+            position:absolute;
+            width:100%;
+            left: 0px;
+            top: 50px;
+            bottom: 0px;
+            outline: none;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="lucky-mask-demo" style="position: absolute;z-index: 1000000;left: 0px;top: 0px;bottom: 0px;right: 0px; background: rgba(255, 255, 255, 0.8); text-align: center;font-size: 40px;align-items:center;justify-content: center;display: none;">Downloading</div>
-    <p style="text-align:center;"> <input style="font-size:16px;" type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler" /> Or Load remote xlsx file: <select style="height: 27px;top: -2px;position: relative;" id="Luckyexcel-select-demo"> <option value="">select a demo</option> <option value="https://minio.cnbabylon.com/public/luckysheet/money-manager-2.xlsx">Money Manager.xlsx</option> <option value="https://minio.cnbabylon.com/public/luckysheet/Activity%20costs%20tracker.xlsx">Activity costs tracker.xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/House%20cleaning%20checklist.xlsx">House cleaning checklist.xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/Student%20assignment%20planner.xlsx">Student assignment planner.xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/Credit%20card%20tracker.xlsx">Credit card tracker.xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/Blue%20timesheet.xlsx">Blue timesheet.xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/Student%20calendar%20%28Mon%29.xlsx">Student calendar (Mon).xlsx</option><option value="https://minio.cnbabylon.com/public/luckysheet/Blue%20mileage%20and%20expense%20report.xlsx">Blue mileage and expense report.xlsx</option> </select> <a href="javascript:void(0)" id="Luckyexcel-downlod-file">Download source xlsx file</a></p>
-    <div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;left: 0px;top: 50px;bottom: 0px;outline: none;"></div>
+    <div id="lucky-mask-demo" class="lucky-mask-demo">Downloading</div>
+    <p>
+        <input style="font-size:16px;" type="file" id="Luckyexcel-demo-file" name="Luckyexcel-demo-file" change="demoHandler" />
+        加载远程xlsx文件: 
+        <select
+            style="height: 27px;top: -2px;position: relative;" id="Luckyexcel-select-demo">
+            <option value="">select a demo</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/money-manager-2.xlsx">Money Manager.xlsx
+            </option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Activity%20costs%20tracker.xlsx">Activity costs
+                tracker.xlsx</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/House%20cleaning%20checklist.xlsx">House
+                cleaning checklist.xlsx</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Student%20assignment%20planner.xlsx">Student
+                assignment planner.xlsx</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Credit%20card%20tracker.xlsx">Credit card
+                tracker.xlsx</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Blue%20timesheet.xlsx">Blue timesheet.xlsx
+            </option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Student%20calendar%20%28Mon%29.xlsx">Student
+                calendar (Mon).xlsx</option>
+            <option value="https://minio.cnbabylon.com/public/luckysheet/Blue%20mileage%20and%20expense%20report.xlsx">
+                Blue mileage and expense report.xlsx</option>
+        </select>
+        <a href="javascript:void(0)" id="Luckyexcel-downlod-file">下载xlsx</a>
+    </p>
+    <div id="luckysheet" class="sheet"></div>
     <script>
         $(function () {
             //配置项
             var options = {
-                container: 'luckysheet', //luckysheet为容器id
-                lang: 'zh' // 设定表格语言
+                container: 'luckysheet', // luckysheet为容器id
+                lang: 'zh', // 设定表格语言
+                hook: {
+                    cellEditBefore: function (range) {
+                        console.log(arguments)
+                    },
+                    /**
+                     * 更新这个单元格后触发
+                     * {Number} [r]: 单元格所在行数
+                     * {Number} [c]: 单元格所在列数
+                     * {Object} [oldValue]: 修改前的单元格对象
+                     * {Object} [newValue]: 修改后的单元格对象
+                     * {Boolean} [isRefresh]: 是否刷新整个表格
+                     */
+                    cellUpdated: function (rowIndex, colunmIndex, oldValue, newValue, isRefresh) {
+                        console.log(arguments)
+                    },
+                    // 暂不支持该方法
+                    // rangeDeleteAfter: function (range, data) {
+                    //     console.log(arguments)
+                    // }
+                }
             }
             luckysheet.create(options)
 
@@ -43,6 +113,7 @@
             // );
         })
 
+        // 选择上传文件、加载远程excel文件、下载excel文件事件绑定
         function demoHandler() {
             let upload = document.getElementById("Luckyexcel-demo-file");
             let selectADemo = document.getElementById("Luckyexcel-select-demo");
@@ -50,68 +121,68 @@
             let mask = document.getElementById("lucky-mask-demo");
             if (upload) {
                 window.onload = () => {
-                    upload.addEventListener("change", function(evt){
+                    upload.addEventListener("change", function (evt) {
                         var files = evt.target.files;
-                        if(files==null || files.length==0){
+                        if (files == null || files.length == 0) {
                             alert("No files wait for import");
                             return;
                         }
 
                         let name = files[0].name;
-                        let suffixArr = name.split("."), suffix = suffixArr[suffixArr.length-1];
-                        if(suffix!="xlsx") {
+                        let suffixArr = name.split("."), suffix = suffixArr[suffixArr.length - 1];
+                        if (suffix != "xlsx") {
                             alert("Currently only supports the import of xlsx files");
                             return;
                         }
-                        LuckyExcel.transformExcelToLucky(files[0], function(exportJson, luckysheetfile) {
-                            if(exportJson.sheets==null || exportJson.sheets.length==0){
+                        LuckyExcel.transformExcelToLucky(files[0], function (exportJson, luckysheetfile) {
+                            if (exportJson.sheets == null || exportJson.sheets.length == 0) {
                                 alert("Failed to read the content of the excel file, currently does not support xls files!");
                                 return;
                             }
                             console.log(exportJson, luckysheetfile);
                             window.luckysheet.destroy();
-                            
+
                             window.luckysheet.create({
                                 container: 'luckysheet', //luckysheet is the container id
-                                showinfobar:false,
-                                data:exportJson.sheets,
-                                title:exportJson.info.name,
-                                userInfo:exportJson.info.name.creator,
+                                showinfobar: false,
+                                data: exportJson.sheets,
+                                title: exportJson.info.name,
+                                userInfo: exportJson.info.name.creator,
                                 lang: 'zh' // 设定表格语言
                             });
                         });
                     });
 
-                    selectADemo.addEventListener("change", function(evt){
+                    selectADemo.addEventListener("change", function (evt) {
                         var obj = selectADemo;
                         var index = obj.selectedIndex;
                         var value = obj.options[index].value;
                         var name = obj.options[index].innerHTML;
-                        if(value==""){
+                        if (value == "") {
                             return;
                         }
                         mask.style.display = "flex";
-                        LuckyExcel.transformExcelToLuckyByUrl(value, name, function(exportJson, luckysheetfile){
-                            
-                            if (exportJson.sheets==null || exportJson.sheets.length==0){
+                        LuckyExcel.transformExcelToLuckyByUrl(value, name, function (exportJson, luckysheetfile) {
+
+                            if (exportJson.sheets == null || exportJson.sheets.length == 0) {
                                 alert("Failed to read the content of the excel file, currently does not support xls files!");
                                 return;
                             }
                             console.log(exportJson, luckysheetfile);
                             mask.style.display = "none";
                             window.luckysheet.destroy();
-                            
+
                             window.luckysheet.create({
                                 container: 'luckysheet', //luckysheet is the container id
-                                showinfobar:false,
-                                data:exportJson.sheets,
-                                title:exportJson.info.name,
-                                userInfo:exportJson.info.name.creator
+                                showinfobar: false,
+                                data: exportJson.sheets,
+                                title: exportJson.info.name,
+                                userInfo: exportJson.info.name.creator
                             });
                         });
                     });
 
-                    downlodDemo.addEventListener("click", function(evt) {
+                    downlodDemo.addEventListener("click", function (evt) {
                         var obj = selectADemo;
                         var index = obj.selectedIndex;
                         var value = obj.options[index].value;
@@ -122,7 +193,7 @@
                         }
 
                         var elemIF = document.getElementById("Lucky-download-frame");
-                        if (elemIF == null){
+                        if (elemIF == null) {
                             elemIF = document.createElement("iframe");
                             elemIF.style.display = "none";
                             elemIF.id = "Lucky-download-frame";
@@ -136,4 +207,5 @@
         demoHandler();
     </script>
 </body>
+
 </html>
