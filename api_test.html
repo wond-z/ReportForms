@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReportForms</title>
+    <link rel='stylesheet' href='./dist/plugins/css/pluginsCss.css' />
+    <link rel='stylesheet' href='./dist/plugins/plugins.css' />
+    <link rel='stylesheet' href='./dist/css/luckysheet.css' />
+    <link rel='stylesheet' href='./dist/assets/iconfont/iconfont.css' />
+    <script src="./dist/plugins/js/plugin.js"></script>
+    <script src="./dist/luckysheet.umd.js"></script>
+    <script src="./dist/luckyexcel.umd.js"></script>
+    <style>
+        .lucky-mask-demo {
+            position: absolute;
+            z-index: 1000000;
+            left: 0px;
+            top: 0px;bottom: 0px;
+            right: 0px;
+            background: rgba(255, 255, 255, 0.8);
+            text-align: center;
+            font-size: 40px;
+            align-items:center;
+            justify-content: center;
+            display: none;
+        }
+        .sheet {
+            margin:0px;
+            padding:0px;
+            position:absolute;
+            width:100%;
+            left: 0px;
+            top: 50px;
+            bottom: 0px;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="operation-list">
+        <button id="insertImage">插入图片</button>
+    </div>
+    <div id="luckysheet" class="sheet"></div>
+    <script>
+        $(function () {
+            //配置项
+            var options = {
+                container: 'luckysheet', // luckysheet为容器id
+                lang: 'zh', // 设定表格语言
+                showinfobar: false,
+                hook: {
+                }
+            }
+            luckysheet.create(options)
+        })
+
+        // 选择上传文件、加载远程excel文件、下载excel文件事件绑定
+        function demoHandler() {
+            let insertImage = document.getElementById("insertImage");
+            insertImage.addEventListener("click", function (evt) {
+                /**
+                 * {String} [src]: 图片src
+                 * 可选参数
+                 * {Number} [order]: 工作表下标；默认值为当前工作表下标
+                 * {Number} [rowIndex]: 要插入图片的单元格行下标；默认为当前选区聚焦单元格行下标 || 0
+                 * {Number} [colIndex]: 要插入图片的单元格列下标；默认为当前选区聚焦单元格列下标 || 0
+                 * {Function} [success]: 操作结束的回调函数
+                 */
+                luckysheet.insertImage('http://192.168.3.38:5500/aa.jpg', {
+                    order: 0, // 若要动态添加到别的sheet页，需先选择该sheet页后再进行添加
+                    rowIndex: 0, 
+                    colIndex: 0, 
+                    success: function(e) {
+                        console.log(arguments);
+                    }
+                })
+
+                var base64Img = 'data:image/jpeg;base64,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';
+                luckysheet.insertImage(base64Img, {
+                    order: 0, // 若要动态添加到别的sheet页，需先选择该sheet页后再进行添加
+                    rowIndex: 3, 
+                    colIndex: 6, 
+                    success: function(e) {
+                        console.log(arguments);
+                    }
+                })
+            });
+              
+        }
+        demoHandler();
+    </script>
+</body>
+
+</html>
