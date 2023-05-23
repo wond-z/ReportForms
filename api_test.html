@@ -43,6 +43,7 @@
 <body>
     <div class="operation-list">
         <button id="insertImage">插入图片</button>
+        <button id="insertValueForMergedCell">合并单元格插入值</button>
     </div>
     <div id="luckysheet" class="sheet"></div>
     <script>
@@ -53,6 +54,62 @@
                 lang: 'zh', // 设定表格语言
                 showinfobar: false,
                 hook: {
+                    cellRenderAfter: function (cell, position, sheetFile, ctx) {
+                        var r = position.r;
+                        var c = position.c;
+                        if (r === 3 && c === 3) { // 指定处理D1单元格
+                            if (!window.storeUserImage) {
+                                window.storeUserImage = {}
+                            }
+                            
+                            if (!window.storeUserImage[r + '_' + c]) {
+                                window.storeUserImage[r + '_' + c] = {}
+                            }
+
+                            var img = null;
+                            var imgRight = null;
+
+                            if (window.storeUserImage[r + '_' + c].image && window.storeUserImage[r + '_' + c].imgRight) {
+                                
+                                // 加载过直接取
+                                img = window.storeUserImage[r + '_' + c].image;
+                                imgRight = window.storeUserImage[r + '_' + c].imgRight;
+
+                            } else {
+
+                                img = new Image();
+                                imgRight = new Image();
+
+                                img.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
+                                imgRight.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
+
+                                // 图片缓存到内存，下次直接取，不用再重新加载
+                                window.storeUserImage[r + '_' + c].image = img;
+                                window.storeUserImage[r + '_' + c].imgRight = imgRight;
+
+                            }
+
+                            
+                            if (img.complete) { // 已经加载完成的直接渲染
+                                ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
+                            } else {
+                                img.onload = function () {
+                                    ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
+                                }
+
+                            }
+
+                            if (imgRight.complete) {
+                                ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
+                            } else {
+
+                                imgRight.onload = function () {
+                                    ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
+                                }
+                            }
+
+                        }
+                    }
                 }
             }
             luckysheet.create(options)
@@ -61,6 +118,7 @@
         // 选择上传文件、加载远程excel文件、下载excel文件事件绑定
         function demoHandler() {
             let insertImage = document.getElementById("insertImage");
+            let insertValueForMergedCell = document.getElementById("insertValueForMergedCell");
             insertImage.addEventListener("click", function (evt) {
                 /**
                  * {String} [src]: 图片src
@@ -89,7 +147,9 @@
                     }
                 })
             });
-              
+            insertValueForMergedCell.addEventListener("click", function (evt) {
+                luckysheet.setCellValue(1, 1, '我是合并后的单元格值');
+            });
         }
         demoHandler();
     </script>
