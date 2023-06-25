@@ -46,6 +46,40 @@ import luckysheetSearchReplace from "../controllers/searchReplace";
 const IDCardReg = /^\d{6}(18|19|20)?\d{2}(0[1-9]|1[12])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)$/i;
 
 /**
+ * 设置锁定列宽度
+ * @param {Number} rowHeightLock 
+ */
+export function setColWidthLock(colWidthLock) {
+    Store.colWidthLock = colWidthLock;
+    
+}
+
+export function setRowHeightLock(rowHeightLock) {
+    Store.rowHeightLock = rowHeightLock;
+    
+}
+
+/**
+ * 设置表头高度
+ * @param {Number} columnHeaderHeight 表头高度，0的时候进行隐藏
+ */
+export function setRowHeaderWidth(rowHeaderWidth) {
+    Store.rowHeaderWidth = rowHeaderWidth;
+    luckysheetConfigsetting.rowHeaderWidth = rowHeaderWidth;
+    luckysheetrefreshgrid()
+}
+
+/**
+ * 设置表头高度
+ * @param {Number} columnHeaderHeight 表头高度，0的时候进行隐藏
+ */
+export function setColumnHeaderHeight(columnHeaderHeight) {
+    Store.columnHeaderHeight = columnHeaderHeight;
+    luckysheetConfigsetting.columnHeaderHeight = columnHeaderHeight;
+    luckysheetrefreshgrid()
+}
+
+/**
  * 获取单元格的值
  * @param {Number} row 单元格所在行数；从0开始的整数，0表示第一行
  * @param {Number} column 单元格所在列数；从0开始的整数，0表示第一列
