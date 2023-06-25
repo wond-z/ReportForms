@@ -57,60 +57,60 @@
                 showinfobar: false,
                 hook: {
                     cellRenderAfter: function (cell, position, sheetFile, ctx) {
-                        var r = position.r;
-                        var c = position.c;
-                        if (r === 3 && c === 3) { // 指定处理D1单元格
-                            if (!window.storeUserImage) {
-                                window.storeUserImage = {}
-                            }
+                        // var r = position.r;
+                        // var c = position.c;
+                        // if (r === 3 && c === 3) { // 指定处理D1单元格
+                        //     if (!window.storeUserImage) {
+                        //         window.storeUserImage = {}
+                        //     }
                             
-                            if (!window.storeUserImage[r + '_' + c]) {
-                                window.storeUserImage[r + '_' + c] = {}
-                            }
+                        //     if (!window.storeUserImage[r + '_' + c]) {
+                        //         window.storeUserImage[r + '_' + c] = {}
+                        //     }
 
-                            var img = null;
-                            var imgRight = null;
+                        //     var img = null;
+                        //     var imgRight = null;
 
-                            if (window.storeUserImage[r + '_' + c].image && window.storeUserImage[r + '_' + c].imgRight) {
+                        //     if (window.storeUserImage[r + '_' + c].image && window.storeUserImage[r + '_' + c].imgRight) {
                                 
-                                // 加载过直接取
-                                img = window.storeUserImage[r + '_' + c].image;
-                                imgRight = window.storeUserImage[r + '_' + c].imgRight;
+                        //         // 加载过直接取
+                        //         img = window.storeUserImage[r + '_' + c].image;
+                        //         imgRight = window.storeUserImage[r + '_' + c].imgRight;
 
-                            } else {
+                        //     } else {
 
-                                img = new Image();
-                                imgRight = new Image();
+                        //         img = new Image();
+                        //         imgRight = new Image();
 
-                                img.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
-                                imgRight.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
+                        //         img.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
+                        //         imgRight.src = 'https://www.dogedoge.com/static/icons/twemoji/svg/1f637.svg';
 
-                                // 图片缓存到内存，下次直接取，不用再重新加载
-                                window.storeUserImage[r + '_' + c].image = img;
-                                window.storeUserImage[r + '_' + c].imgRight = imgRight;
+                        //         // 图片缓存到内存，下次直接取，不用再重新加载
+                        //         window.storeUserImage[r + '_' + c].image = img;
+                        //         window.storeUserImage[r + '_' + c].imgRight = imgRight;
 
-                            }
+                        //     }
 
                             
-                            if (img.complete) { // 已经加载完成的直接渲染
-                                ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
-                            } else {
-                                img.onload = function () {
-                                    ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
-                                }
+                        //     if (img.complete) { // 已经加载完成的直接渲染
+                        //         ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
+                        //     } else {
+                        //         img.onload = function () {
+                        //             ctx.drawImage(img, position.start_c, position.start_r, 10, 10);
+                        //         }
 
-                            }
+                        //     }
 
-                            if (imgRight.complete) {
-                                ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
-                            } else {
+                        //     if (imgRight.complete) {
+                        //         ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
+                        //     } else {
 
-                                imgRight.onload = function () {
-                                    ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
-                                }
-                            }
+                        //         imgRight.onload = function () {
+                        //             ctx.drawImage(imgRight, position.end_c - 10, position.end_r - 10, 10, 10);
+                        //         }
+                        //     }
 
-                        }
+                        // }
                     }
                 }
             }
@@ -132,20 +132,20 @@
                  * {Number} [colIndex]: 要插入图片的单元格列下标；默认为当前选区聚焦单元格列下标 || 0
                  * {Function} [success]: 操作结束的回调函数
                  */
-                luckysheet.insertImage('http://192.168.3.38:5500/aa.jpg', {
-                    order: 0, // 若要动态添加到别的sheet页，需先选择该sheet页后再进行添加
-                    rowIndex: 0, 
-                    colIndex: 0, 
-                    success: function(e) {
-                        console.log(arguments);
-                    }
-                })
+                // luckysheet.insertImage('http://192.168.3.38:5500/aa.jpg', {
+                //     order: 0, // 若要动态添加到别的sheet页，需先选择该sheet页后再进行添加
+                //     rowIndex: 0, 
+                //     colIndex: 0, 
+                //     success: function(e) {
+                //         console.log(arguments);
+                //     }
+                // })
 
                 var base64Img = 'data:image/jpeg;base64,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';
                 luckysheet.insertImage(base64Img, {
                     order: 0, // 若要动态添加到别的sheet页，需先选择该sheet页后再进行添加
-                    rowIndex: 3, 
-                    colIndex: 6, 
+                    rowIndex: 2, 
+                    colIndex: 2, 
                     success: function(e) {
                         console.log(arguments);
                     }
@@ -160,62 +160,1273 @@
             
             /**
              * exportLuckysheetToExcel
-             * @param {Object} luckysheet luckysheet.getluckysheetfile()获取的对象
+             * @param {Object} luckysheet luckysheet对象
              */
             async function exportLuckysheetToExcel(luckysheet) {
-                // 设置单元格合并
-                var setMerge = function (luckyMerge = {}, worksheet) {
-                    const mergearr = Object.values(luckyMerge)
-                    mergearr.forEach(function (elem) { // elem格式：{r: 0, c: 0, rs: 1, cs: 2}
-                        // 按开始行，开始列，结束行，结束列合并（相当于 K10:M12）
-                        worksheet.mergeCells(elem.r + 1, elem.c + 1, elem.r + elem.rs, elem.c + elem.cs)
-                    })
+                var luckysheetfile = luckysheet.getluckysheetfile();
+                // 保存文件
+                var saveFile = function (buf, name) {
+                    let blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8' });
+                    const downloadElement = document.createElement('a');
+                    let href = window.URL.createObjectURL(blob);
+                    downloadElement.href = href;
+                    downloadElement.download = name + ".xlsx"; // 文件名字
+                    document.body.appendChild(downloadElement);
+                    downloadElement.click();
+                    document.body.removeChild(downloadElement); // 下载完成移除元素
+                    window.URL.revokeObjectURL(href); // 释放掉blob对象
                 }
 
+                // 合并设置
+                var setMerge = function (luckyMerge = {}, worksheet) {
+                    const mergearr = Object.values(luckyMerge);
+                    mergearr.forEach(function (elem) { // elem格式：{r: 0, c: 0, rs: 1, cs: 2}
+                        // 按开始行，开始列，结束行，结束列合并（相当于 K10:M12）
+                        worksheet.mergeCells(elem.r + 1, elem.c + 1, elem.r + elem.rs, elem.c + elem.cs);
+                    });
+                }
+
+                // 获取图片在单元格的位置
+                var getImagePosition = function (num, arr) {
+                    let index = 0;
+                    let minIndex;
+                    let maxIndex;
+                    for (let i = 0; i < arr.length; i++) {
+                        if (num < arr[i]) {
+                            index = i;
+                            break;
+                        }
+                    }
+
+                    if (index == 0) {
+                        minIndex = 0;
+                        maxIndex = 1;
+                        return Math.abs((num - 0) / (arr[maxIndex] - arr[minIndex])) + index;
+                    } else if (index == arr.length - 1) {
+                        minIndex = arr.length - 2;
+                        maxIndex = arr.length - 1;
+                    } else {
+                        minIndex = index - 1;
+                        maxIndex = index;
+                    }
+                    let min = arr[minIndex];
+                    let max = arr[maxIndex];
+                    let radio = Math.abs((num - min) / (max - min)) + index
+                    return radio;
+                }
+
+                // 设置图片
+                var setImages = function (table, worksheet, workbook) {
+                    let {
+                        images,
+                        visibledatacolumn,//所有行的位置
+                        visibledatarow //所有列的位置
+                    } = { ...table }
+                    if (typeof images != 'object') return;
+                    for (let key in images) {
+                        // 通过 base64  将图像添加到工作簿
+                        const myBase64Image = images[key].src;
+                        //开始行 开始列 结束行 结束列
+                        const item = images[key];
+                        const imageId = workbook.addImage({
+                            base64: myBase64Image,
+                            extension: 'png'
+                        });
+
+                        const col_st = getImagePosition(item.default.left, visibledatacolumn);
+                        const row_st = getImagePosition(item.default.top, visibledatarow);
+
+                        //模式1，图片左侧与luckysheet位置一样，像素比例保持不变，但是，右侧位置可能与原图所在单元格不一致
+                        worksheet.addImage(imageId, {
+                            tl: { col: col_st, row: row_st },
+                            ext: { width: item.default.width, height: item.default.height },
+                        });
+                        //模式2,图片四个角位置没有变动，但是图片像素比例可能和原图不一样
+                        // const w_ed = item.default.left+item.default.width;
+                        // const h_ed = item.default.top+item.default.height;
+                        // const col_ed = getImagePosition(w_ed,visibledatacolumn);
+                        // const row_ed = getImagePosition(h_ed,visibledatarow);
+                        // worksheet.addImage(imageId, {
+                        //   tl: { col: col_st, row: row_st},
+                        //   br: { col: col_ed, row: row_ed},
+                        // });
+                    }
+                };
+
                 // 设置边框
-                var setBorder = function (luckyBorderInfo, worksheet) {
-                    if (!Array.isArray(luckyBorderInfo)) return
-                    luckyBorderInfo.forEach(function (elem) {
-                        let border = borderConvert(elem.borderType, elem.style, elem.color)
-                        let rang = elem.range[0]
-                        // console.log(rang.column_focus + 1, rang.row_focus + 1)
-                        worksheet.getCell(rang.row_focus + 1, rang.column_focus + 1).border = border
-                    })
+                var setBorder = function (table, worksheet) {
+                    if (!table) return;
+                    const luckyToExcel = {
+                        style: {
+                            0: 'none',
+                            1: 'thin',
+                            2: 'hair',
+                            3: 'dotted',
+                            4: 'dashDot', // 'Dashed',
+                            5: 'dashDot',
+                            6: 'dashDotDot',
+                            7: 'double',
+                            8: 'medium',
+                            9: 'mediumDashed',
+                            10: 'mediumDashDot',
+                            11: 'mediumDashDotDot',
+                            12: 'slantDashDot',
+                            13: 'thick'
+                        }
+                    }
+                    //获取所有的单元格边框的信息
+                    const borderInfoCompute = getBorderInfo(table);
+                    for (let x in borderInfoCompute) {
+                        let border = {};
+                        let info = borderInfoCompute[x];
+                        let row = parseInt(x.substr(0, x.indexOf('_')));
+                        let column = parseInt(x.substr(x.indexOf('_') + 1));
+                        if (info.t != undefined) {
+                            const tcolor = info.t.color.indexOf('rgb') > -1 ? rgb2hex(info.t.color) : info.t.color;
+                            border['top'] = { style: luckyToExcel.style[info.t.style], color: { argb: tcolor.replace('#', '') } };
+                        }
+                        if (info.r != undefined) {
+                            const rcolor = info.r.color.indexOf('rgb') > -1 ? rgb2hex(info.r.color) : info.r.color;
+                            border['right'] = { style: luckyToExcel.style[info.r.style], color: { argb: rcolor.replace('#', '') } };
+                        }
+                        if (info.b != undefined) {
+                            const bcolor = info.b.color.indexOf('rgb') > -1 ? rgb2hex(info.b.color) : info.b.color;
+                            border['bottom'] = { style: luckyToExcel.style[info.b.style], color: { argb: bcolor.replace('#', '') } };
+                        }
+                        if (info.l != undefined) {
+                            const lcolor = info.l.color.indexOf('rgb') > -1 ? rgb2hex(info.l.color) : info.l.color;
+                            border['left'] = { style: luckyToExcel.style[info.l.style], color: { argb: lcolor.replace('#', '') } };
+                        }
+                        worksheet.getCell(row + 1, column + 1).border = border;
+                    }
+                }
+
+                // 获取边框信息
+                var getBorderInfo = function (table) {
+                    let borderInfoCompute = {};
+                    let cfg = table.config;
+                    let data = table.data;
+                    let borderInfo = cfg["borderInfo"];
+                    //设置需要计算边框的区域
+                    let dataset_row_st = 0, dataset_row_ed = data.length, dataset_col_st = 0, dataset_col_ed = data[0].length;
+                    if (borderInfo != null && borderInfo.length > 0) {
+                        for (let i = 0; i < borderInfo.length; i++) {
+                            let rangeType = borderInfo[i].rangeType;
+
+                            if (rangeType == "range") {
+                                let borderType = borderInfo[i].borderType;
+                                let borderColor = borderInfo[i].color;
+                                let borderStyle = borderInfo[i].style;
+
+                                let borderRange = borderInfo[i].range;
+
+                                for (let j = 0; j < borderRange.length; j++) {
+                                    let bd_r1 = borderRange[j].row[0], bd_r2 = borderRange[j].row[1];
+                                    let bd_c1 = borderRange[j].column[0], bd_c2 = borderRange[j].column[1];
+
+                                    if (bd_r1 < dataset_row_st) {
+                                        bd_r1 = dataset_row_st;
+                                    }
+
+                                    if (bd_r2 > dataset_row_ed) {
+                                        bd_r2 = dataset_row_ed;
+                                    }
+
+                                    if (bd_c1 < dataset_col_st) {
+                                        bd_c1 = dataset_col_st;
+                                    }
+
+                                    if (bd_c2 > dataset_col_ed) {
+                                        bd_c2 = dataset_col_ed;
+                                    }
+
+                                    if (borderType == "border-left") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            if (borderInfoCompute[bd_r + "_" + bd_c1] == null) {
+                                                borderInfoCompute[bd_r + "_" + bd_c1] = {};
+                                            }
+
+                                            borderInfoCompute[bd_r + "_" + bd_c1].l = { "color": borderColor, "style": borderStyle };
+
+                                            let bd_c_left = bd_c1 - 1;
+
+                                            if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_left]) == "object" && data[bd_r][bd_c_left].mc != null) {
+                                                    let cell_left = data[bd_r][bd_c_left];
+
+                                                    let mc = cfg["merge"][cell_left.mc.r + "_" + cell_left.mc.c];
+
+                                                    if (mc.c + mc.cs - 1 == bd_c_left) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                }
+                                            }
+
+                                            let mc = cfg["merge"] || {};
+                                            for (const key in mc) {
+                                                let { c, r, cs, rs } = mc[key];
+                                                if (bd_c1 <= c + cs - 1 && bd_c1 > c && bd_r >= r && bd_r <= r + rs - 1) {
+                                                    borderInfoCompute[bd_r + "_" + bd_c1].l = null;
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-right") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            if (borderInfoCompute[bd_r + "_" + bd_c2] == null) {
+                                                borderInfoCompute[bd_r + "_" + bd_c2] = {};
+                                            }
+
+                                            borderInfoCompute[bd_r + "_" + bd_c2].r = { "color": borderColor, "style": borderStyle };
+
+                                            let bd_c_right = bd_c2 + 1;
+
+                                            if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_right]) == "object" && data[bd_r][bd_c_right].mc != null) {
+                                                    let cell_right = data[bd_r][bd_c_right];
+
+                                                    let mc = cfg["merge"][cell_right.mc.r + "_" + cell_right.mc.c];
+
+                                                    if (mc.c == bd_c_right) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                }
+                                            }
+                                            let mc = cfg["merge"] || {};
+                                            for (const key in mc) {
+                                                let { c, r, cs, rs } = mc[key];
+                                                if (bd_c2 < c + cs - 1 && bd_c2 >= c && bd_r >= r && bd_r <= r + rs - 1) {
+                                                    borderInfoCompute[bd_r + "_" + bd_c2].r = null;
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-top") {
+                                        if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r1] != null) {
+                                            continue;
+                                        }
+
+                                        for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                            if (borderInfoCompute[bd_r1 + "_" + bd_c] == null) {
+                                                borderInfoCompute[bd_r1 + "_" + bd_c] = {};
+                                            }
+
+                                            borderInfoCompute[bd_r1 + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+
+                                            let bd_r_top = bd_r1 - 1;
+
+                                            if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                if (data[bd_r_top] != null && getObjType(data[bd_r_top][bd_c]) == "object" && data[bd_r_top][bd_c].mc != null) {
+                                                    let cell_top = data[bd_r_top][bd_c];
+
+                                                    let mc = cfg["merge"][cell_top.mc.r + "_" + cell_top.mc.c];
+
+                                                    if (mc.r + mc.rs - 1 == bd_r_top) {
+                                                        borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                }
+                                            }
+
+                                            let mc = cfg["merge"] || {};
+                                            for (const key in mc) {
+                                                let { c, r, cs, rs } = mc[key];
+                                                if (bd_r1 <= r + rs - 1 && bd_r1 > r && bd_c >= c && bd_c <= c + cs - 1) {
+                                                    borderInfoCompute[bd_r1 + "_" + bd_c].t = null;
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-bottom") {
+                                        if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r2] != null) {
+                                            continue;
+                                        }
+
+                                        for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                            if (borderInfoCompute[bd_r2 + "_" + bd_c] == null) {
+                                                borderInfoCompute[bd_r2 + "_" + bd_c] = {};
+                                            }
+
+                                            borderInfoCompute[bd_r2 + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+
+                                            let bd_r_bottom = bd_r2 + 1;
+
+                                            if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                if (data[bd_r_bottom] != null && getObjType(data[bd_r_bottom][bd_c]) == "object" && data[bd_r_bottom][bd_c].mc != null) {
+                                                    let cell_bottom = data[bd_r_bottom][bd_c];
+
+                                                    let mc = cfg["merge"][cell_bottom.mc.r + "_" + cell_bottom.mc.c];
+
+                                                    if (mc.r == bd_r_bottom) {
+                                                        borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                }
+                                            }
+
+                                            let mc = cfg["merge"] || {};
+                                            for (const key in mc) {
+                                                let { c, r, cs, rs } = mc[key];
+                                                if (bd_r2 < r + rs - 1 && bd_r2 >= r && bd_c >= c && bd_c <= c + cs - 1) {
+                                                    borderInfoCompute[bd_r2 + "_" + bd_c].b = null;
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-all") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                    let cell = data[bd_r][bd_c];
+
+                                                    let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+                                                    if (mc == undefined || mc == null) {
+                                                        continue
+                                                    };
+                                                    if (mc.r == bd_r) {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+
+                                                    if (mc.r + mc.rs - 1 == bd_r) {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+
+                                                    if (mc.c == bd_c) {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                    }
+
+                                                    if (mc.c + mc.cs - 1 == bd_c) {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                    }
+
+                                                    borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                    borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                    borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                }
+
+                                                if (bd_r == bd_r1) {
+                                                    let bd_r_top = bd_r1 - 1;
+
+                                                    if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                        if (data[bd_r_top] != null && getObjType(data[bd_r_top][bd_c]) == "object" && data[bd_r_top][bd_c].mc != null) {
+                                                            let cell_top = data[bd_r_top][bd_c];
+
+                                                            let mc = cfg["merge"][cell_top.mc.r + "_" + cell_top.mc.c];
+
+                                                            if (mc.r + mc.rs - 1 == bd_r_top) {
+                                                                borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_r == bd_r2) {
+                                                    let bd_r_bottom = bd_r2 + 1;
+
+                                                    if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                        if (data[bd_r_bottom] != null && getObjType(data[bd_r_bottom][bd_c]) == "object" && data[bd_r_bottom][bd_c].mc != null) {
+                                                            let cell_bottom = data[bd_r_bottom][bd_c];
+
+                                                            let mc = cfg["merge"][cell_bottom.mc.r + "_" + cell_bottom.mc.c];
+
+                                                            if (mc.r == bd_r_bottom) {
+                                                                borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c1) {
+                                                    let bd_c_left = bd_c1 - 1;
+
+                                                    if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                        if (data[bd_r] != null && getObjType(data[bd_r][bd_c_left]) == "object" && data[bd_r][bd_c_left].mc != null) {
+                                                            let cell_left = data[bd_r][bd_c_left];
+
+                                                            let mc = cfg["merge"][cell_left.mc.r + "_" + cell_left.mc.c];
+
+                                                            if (mc.c + mc.cs - 1 == bd_c_left) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c2) {
+                                                    let bd_c_right = bd_c2 + 1;
+
+                                                    if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                        if (data[bd_r] != null && getObjType(data[bd_r][bd_c_right]) == "object" && data[bd_r][bd_c_right].mc != null) {
+                                                            let cell_right = data[bd_r][bd_c_right];
+
+                                                            let mc = cfg["merge"][cell_right.mc.r + "_" + cell_right.mc.c];
+
+                                                            if (mc.c == bd_c_right) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-outside") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (!(bd_r == bd_r1 || bd_r == bd_r2 || bd_c == bd_c1 || bd_c == bd_c2)) {
+                                                    continue;
+                                                }
+
+                                                if (bd_r == bd_r1) {
+                                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                    }
+
+                                                    borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+
+                                                    let bd_r_top = bd_r1 - 1;
+
+                                                    if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                        if (data[bd_r_top] != null && getObjType(data[bd_r_top][bd_c]) == "object" && data[bd_r_top][bd_c].mc != null) {
+                                                            let cell_top = data[bd_r_top][bd_c];
+
+                                                            let mc = cfg["merge"][cell_top.mc.r + "_" + cell_top.mc.c];
+
+                                                            if (mc.r + mc.rs - 1 == bd_r_top) {
+                                                                borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_r == bd_r2) {
+                                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                    }
+
+                                                    borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+
+                                                    let bd_r_bottom = bd_r2 + 1;
+
+                                                    if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                        if (data[bd_r_bottom] != null && getObjType(data[bd_r_bottom][bd_c]) == "object" && data[bd_r_bottom][bd_c].mc != null) {
+                                                            let cell_bottom = data[bd_r_bottom][bd_c];
+
+                                                            let mc = cfg["merge"][cell_bottom.mc.r + "_" + cell_bottom.mc.c];
+
+                                                            if (mc.r == bd_r_bottom) {
+                                                                borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c1) {
+                                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                    }
+
+                                                    borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+
+                                                    let bd_c_left = bd_c1 - 1;
+
+                                                    if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                        if (data[bd_r] != null && getObjType(data[bd_r][bd_c_left]) == "object" && data[bd_r][bd_c_left].mc != null) {
+                                                            let cell_left = data[bd_r][bd_c_left];
+
+                                                            let mc = cfg["merge"][cell_left.mc.r + "_" + cell_left.mc.c];
+
+                                                            if (mc.c + mc.cs - 1 == bd_c_left) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c2) {
+                                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                    }
+
+                                                    borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+
+                                                    let bd_c_right = bd_c2 + 1;
+
+                                                    if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                        if (data[bd_r] != null && getObjType(data[bd_r][bd_c_right]) == "object" && data[bd_r][bd_c_right].mc != null) {
+                                                            let cell_right = data[bd_r][bd_c_right];
+
+                                                            let mc = cfg["merge"][cell_right.mc.r + "_" + cell_right.mc.c];
+
+                                                            if (mc.c == bd_c_right) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                            }
+                                                        } else {
+                                                            borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    } else if (borderType == "border-inside") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (bd_r == bd_r1 && bd_c == bd_c1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_r == bd_r2 && bd_c == bd_c1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_r == bd_r1 && bd_c == bd_c2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_r == bd_r2 && bd_c == bd_c2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_r == bd_r1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.c == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        } else if (mc.c + mc.cs - 1 == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_r == bd_r2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.c == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        } else if (mc.c + mc.cs - 1 == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_c == bd_c1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.r == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        } else if (mc.r + mc.rs - 1 == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else if (bd_c == bd_c2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.r == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                        else if (mc.r + mc.rs - 1 == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                } else {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.r == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        } else if (mc.r + mc.rs - 1 == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+
+                                                        if (mc.c == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        } else if (mc.c + mc.cs - 1 == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    } else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (borderType == "border-horizontal") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (bd_r == bd_r1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                                else if (bd_r == bd_r2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                                else {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c];
+
+                                                        if (mc.r == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                        else if (mc.r + mc.rs - 1 == bd_r) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].t = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].b = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (borderType == "border-vertical") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (bd_c == bd_c1) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                                else if (bd_c == bd_c2) {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                                else {
+                                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                                        let cell = data[bd_r][bd_c];
+
+                                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c] || {};
+
+                                                        if (mc.c == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                        else if (mc.c + mc.cs - 1 == bd_c) {
+                                                            if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                                borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                            }
+
+                                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                        }
+                                                    }
+                                                    else {
+                                                        if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                                            borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                                        }
+
+                                                        borderInfoCompute[bd_r + "_" + bd_c].l = { "color": borderColor, "style": borderStyle };
+                                                        borderInfoCompute[bd_r + "_" + bd_c].r = { "color": borderColor, "style": borderStyle };
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    else if (borderType == "border-none") {
+                                        for (let bd_r = bd_r1; bd_r <= bd_r2; bd_r++) {
+                                            if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                                continue;
+                                            }
+
+                                            for (let bd_c = bd_c1; bd_c <= bd_c2; bd_c++) {
+                                                if (borderInfoCompute[bd_r + "_" + bd_c] != null) {
+                                                    delete borderInfoCompute[bd_r + "_" + bd_c];
+                                                }
+
+                                                if (bd_r == bd_r1) {
+                                                    let bd_r_top = bd_r1 - 1;
+
+                                                    if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                        delete borderInfoCompute[bd_r_top + "_" + bd_c].b;
+                                                    }
+                                                }
+
+                                                if (bd_r == bd_r2) {
+                                                    let bd_r_bottom = bd_r2 + 1;
+
+                                                    if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                        delete borderInfoCompute[bd_r_bottom + "_" + bd_c].t;
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c1) {
+                                                    let bd_c_left = bd_c1 - 1;
+
+                                                    if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                        delete borderInfoCompute[bd_r + "_" + bd_c_left].r;
+                                                    }
+                                                }
+
+                                                if (bd_c == bd_c2) {
+                                                    let bd_c_right = bd_c2 + 1;
+
+                                                    if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                        delete borderInfoCompute[bd_r + "_" + bd_c_right].l;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            else if (rangeType == "cell") {
+                                let value = borderInfo[i].value;
+
+                                let bd_r = value.row_index, bd_c = value.col_index;
+
+                                if (bd_r < dataset_row_st || bd_r > dataset_row_ed || bd_c < dataset_col_st || bd_c > dataset_col_ed) {
+                                    continue;
+                                }
+
+                                if (cfg["rowhidden"] != null && cfg["rowhidden"][bd_r] != null) {
+                                    continue;
+                                }
+
+                                if (value.l != null || value.r != null || value.t != null || value.b != null) {
+                                    if (borderInfoCompute[bd_r + "_" + bd_c] == null) {
+                                        borderInfoCompute[bd_r + "_" + bd_c] = {};
+                                    }
+
+                                    if (data[bd_r] != null && getObjType(data[bd_r][bd_c]) == "object" && data[bd_r][bd_c].mc != null) {
+                                        let cell = data[bd_r][bd_c];
+                                        let mc = cfg["merge"][cell.mc.r + "_" + cell.mc.c] || {};
+
+                                        if (value.l != null && bd_c == mc.c) { //左边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": value.l.color, "style": value.l.style };
+
+                                            let bd_c_left = bd_c - 1;
+
+                                            if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_left]) == "object" && data[bd_r][bd_c_left].mc != null) {
+                                                    let cell_left = data[bd_r][bd_c_left];
+
+                                                    let mc_l = cfg["merge"][cell_left.mc.r + "_" + cell_left.mc.c];
+
+                                                    if (mc_l.c + mc_l.cs - 1 == bd_c_left) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": value.l.color, "style": value.l.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": value.l.color, "style": value.l.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].l = null;
+                                        }
+
+                                        if (value.r != null && bd_c == mc.c + mc.cs - 1) { //右边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": value.r.color, "style": value.r.style };
+
+                                            let bd_c_right = bd_c + 1;
+
+                                            if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_right]) == "object" && data[bd_r][bd_c_right].mc != null) {
+                                                    let cell_right = data[bd_r][bd_c_right];
+
+                                                    let mc_r = cfg["merge"][cell_right.mc.r + "_" + cell_right.mc.c];
+
+                                                    if (mc_r.c == bd_c_right) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": value.r.color, "style": value.r.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": value.r.color, "style": value.r.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].r = null;
+                                        }
+
+                                        if (value.t != null && bd_r == mc.r) { //上边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": value.t.color, "style": value.t.style };
+
+                                            let bd_r_top = bd_r - 1;
+
+                                            if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                if (data[bd_r_top] != null && getObjType(data[bd_r_top][bd_c]) == "object" && data[bd_r_top][bd_c].mc != null) {
+                                                    let cell_top = data[bd_r_top][bd_c];
+
+                                                    let mc_t = cfg["merge"][cell_top.mc.r + "_" + cell_top.mc.c];
+
+                                                    if (mc_t.r + mc_t.rs - 1 == bd_r_top) {
+                                                        borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": value.t.color, "style": value.t.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": value.t.color, "style": value.t.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].t = null;
+                                        }
+
+                                        if (value.b != null && bd_r == mc.r + mc.rs - 1) { //下边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": value.b.color, "style": value.b.style };
+
+                                            let bd_r_bottom = bd_r + 1;
+
+                                            if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                if (data[bd_r_bottom] != null && getObjType(data[bd_r_bottom][bd_c]) == "object" && data[bd_r_bottom][bd_c].mc != null) {
+                                                    let cell_bottom = data[bd_r_bottom][bd_c];
+
+                                                    let mc_b = cfg["merge"][cell_bottom.mc.r + "_" + cell_bottom.mc.c];
+
+                                                    if (mc_b.r == bd_r_bottom) {
+                                                        borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": value.b.color, "style": value.b.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": value.b.color, "style": value.b.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].b = null;
+                                        }
+                                    }
+                                    else {
+                                        if (value.l != null) { //左边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].l = { "color": value.l.color, "style": value.l.style };
+
+                                            let bd_c_left = bd_c - 1;
+
+                                            if (bd_c_left >= 0 && borderInfoCompute[bd_r + "_" + bd_c_left]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_left]) == "object" && data[bd_r][bd_c_left].mc != null) {
+                                                    let cell_left = data[bd_r][bd_c_left];
+
+                                                    let mc_l = cfg["merge"][cell_left.mc.r + "_" + cell_left.mc.c];
+
+                                                    if (mc_l.c + mc_l.cs - 1 == bd_c_left) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": value.l.color, "style": value.l.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_left].r = { "color": value.l.color, "style": value.l.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].l = null;
+                                        }
+
+                                        if (value.r != null) { //右边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].r = { "color": value.r.color, "style": value.r.style };
+
+                                            let bd_c_right = bd_c + 1;
+
+                                            if (bd_c_right < data[0].length && borderInfoCompute[bd_r + "_" + bd_c_right]) {
+                                                if (data[bd_r] != null && getObjType(data[bd_r][bd_c_right]) == "object" && data[bd_r][bd_c_right].mc != null) {
+                                                    let cell_right = data[bd_r][bd_c_right];
+
+                                                    let mc_r = cfg["merge"][cell_right.mc.r + "_" + cell_right.mc.c];
+
+                                                    if (mc_r.c == bd_c_right) {
+                                                        borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": value.r.color, "style": value.r.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r + "_" + bd_c_right].l = { "color": value.r.color, "style": value.r.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].r = null;
+                                        }
+
+                                        if (value.t != null) { //上边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].t = { "color": value.t.color, "style": value.t.style };
+
+                                            let bd_r_top = bd_r - 1;
+
+                                            if (bd_r_top >= 0 && borderInfoCompute[bd_r_top + "_" + bd_c]) {
+                                                if (data[bd_r_top] != null && getObjType(data[bd_r_top][bd_c]) == "object" && data[bd_r_top][bd_c].mc != null) {
+                                                    let cell_top = data[bd_r_top][bd_c];
+
+                                                    let mc_t = cfg["merge"][cell_top.mc.r + "_" + cell_top.mc.c];
+
+                                                    if (mc_t.r + mc_t.rs - 1 == bd_r_top) {
+                                                        borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": value.t.color, "style": value.t.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r_top + "_" + bd_c].b = { "color": value.t.color, "style": value.t.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].t = null;
+                                        }
+
+                                        if (value.b != null) { //下边框
+                                            borderInfoCompute[bd_r + "_" + bd_c].b = { "color": value.b.color, "style": value.b.style };
+
+                                            let bd_r_bottom = bd_r + 1;
+
+                                            if (bd_r_bottom < data.length && borderInfoCompute[bd_r_bottom + "_" + bd_c]) {
+                                                if (data[bd_r_bottom] != null && getObjType(data[bd_r_bottom][bd_c]) == "object" && data[bd_r_bottom][bd_c].mc != null) {
+                                                    let cell_bottom = data[bd_r_bottom][bd_c];
+
+                                                    let mc_b = cfg["merge"][cell_bottom.mc.r + "_" + cell_bottom.mc.c];
+
+                                                    if (mc_b.r == bd_r_bottom) {
+                                                        borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": value.b.color, "style": value.b.style };
+                                                    }
+                                                }
+                                                else {
+                                                    borderInfoCompute[bd_r_bottom + "_" + bd_c].t = { "color": value.b.color, "style": value.b.style };
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            borderInfoCompute[bd_r + "_" + bd_c].b = null;
+                                        }
+                                    }
+                                }
+                                else {
+                                    delete borderInfoCompute[bd_r + "_" + bd_c];
+                                }
+                            }
+                        }
+                    }
+                    return borderInfoCompute;
+                }
+
+                // 获取数据类型
+                var getObjType = function (obj) {
+                    let toString = Object.prototype.toString;
+
+                    let map = {
+                        '[object Boolean]': 'boolean',
+                        '[object Number]': 'number',
+                        '[object String]': 'string',
+                        '[object Function]': 'function',
+                        '[object Array]': 'array',
+                        '[object Date]': 'date',
+                        '[object RegExp]': 'regExp',
+                        '[object Undefined]': 'undefined',
+                        '[object Null]': 'null',
+                        '[object Object]': 'object'
+                    }
+                    return map[toString.call(obj)];
                 }
 
                 // 设置样式和值
                 var setStyleAndValue = function (cellArr, worksheet) {
-                    if (!Array.isArray(cellArr)) return
+                    if (!Array.isArray(cellArr)) return;
+
                     cellArr.forEach(function (row, rowid) {
+                        const dbrow = worksheet.getRow(rowid + 1);
+                        //设置单元格行高,默认乘以1.2倍
+                        dbrow.height = luckysheet.getRowHeight([rowid])[rowid] * 1.2;
                         row.every(function (cell, columnid) {
-                            if (!cell) return true
-                            let fill = fillConvert(cell.bg)
-                            let font = fontConvert(cell.ff, cell.fc, cell.bl, cell.it, cell.fs, cell.cl, cell.ul)
-                            let alignment = alignmentConvert(cell.vt, cell.ht, cell.tb, cell.tr)
-                            let value
-                            if (cell.f) {
-                                value = { formula: cell.f, result: cell.v }
-                            } else {
-                                value = cell.v
+                            if (!cell) return true;
+                            if (rowid == 0) {
+                                const dobCol = worksheet.getColumn(columnid + 1);
+                                //设置单元格列宽除以8
+                                dobCol.width = luckysheet.getColumnWidth([columnid])[columnid] / 8;
                             }
-                            let target = worksheet.getCell(rowid + 1, columnid + 1)
-                            target.fill = fill
-                            target.font = font
-                            target.alignment = alignment
-                            target.value = value
-                            return true
-                        }) 
+                            let fill = fillConvert(cell.bg);
+                            let font = fontConvert(cell.ff, cell.fc, cell.bl, cell.it, cell.fs, cell.cl, cell.ul);
+                            let alignment = alignmentConvert(cell.vt, cell.ht, cell.tb, cell.tr);
+                            let value;
+
+                            var v = '';
+                            if (cell.ct && cell.ct.t == 'inlineStr') {
+                                var s = cell.ct.s;
+                                s.forEach(function (val, num) {
+                                    v += val.v;
+                                })
+                            } else {
+                                v = cell.v;
+                            }
+                            if (cell.f) {
+                                value = { formula: cell.f, result: v };
+                            } else {
+                                value = v;
+                            }
+                            let target = worksheet.getCell(rowid + 1, columnid + 1);
+                            target.fill = fill;
+                            target.font = font;
+                            target.alignment = alignment;
+                            target.value = value;
+                            return true;
+                        })
                     })
                 }
 
+                //转换颜色
+                var rgb2hex = function (rgb) {
+                    if (rgb.charAt(0) == '#') {
+                        return rgb;
+                    }
+
+                    var ds = rgb.split(/\D+/);
+                    var decimal = Number(ds[1]) * 65536 + Number(ds[2]) * 256 + Number(ds[3]);
+                    return "#" + zero_fill_hex(decimal, 6);
+
+                    function zero_fill_hex(num, digits) {
+                        var s = num.toString(16);
+                        while (s.length < digits)
+                            s = "0" + s;
+                        return s;
+                    }
+                }
+
+                // 填充转换
                 var fillConvert = function (bg) {
                     if (!bg) {
-                        return {}
+                        return null;
+                        // return {
+                        // 	type: 'pattern',
+                        // 	pattern: 'solid',
+                        // 	fgColor:{argb:'#ffffff'.replace('#','')}
+                        // }
                     }
+                    bg = bg.indexOf('rgb') > -1 ? rgb2hex(bg) : bg;
                     let fill = {
                         type: 'pattern',
                         pattern: 'solid',
-                        fgColor: {argb: bg.replace('#', '')}
+                        fgColor: { argb: bg.replace('#', '') }
                     }
                     return fill
                 }
@@ -226,13 +1437,13 @@
                         0: '微软雅黑',
                         1: '宋体（Song）',
                         2: '黑体（ST Heiti）',
-                        3: '楷体（ST Kaiti）', 
-                        4: '仿宋（ST FangSong）', 
-                        5: '新宋体（ST Song）', 
-                        6: '华文新魏', 
-                        7: '华文行楷', 
-                        8: '华文隶书', 
-                        9: 'Arial', 
+                        3: '楷体（ST Kaiti）',
+                        4: '仿宋（ST FangSong）',
+                        5: '新宋体（ST Song）',
+                        6: '华文新魏',
+                        7: '华文行楷',
+                        8: '华文隶书',
+                        9: 'Arial',
                         10: 'Times New Roman ',
                         11: 'Tahoma ',
                         12: 'Verdana',
@@ -240,22 +1451,23 @@
                             return num === 0 ? false : true
                         }
                     }
-                    
+                    let color = fc ? '' : (fc + "").indexOf('rgb') > -1 ? util.rgb2hex(fc) : fc;
+
                     let font = {
-                        name: luckyToExcel[ff],
+                        name: ff,
                         family: 1,
                         size: fs,
-                        color: {argb: fc.replace('#', '')},
+                        color: { argb: color.replace('#', '') },
                         bold: luckyToExcel.num2bl(bl),
                         italic: luckyToExcel.num2bl(it),
                         underline: luckyToExcel.num2bl(ul),
                         strike: luckyToExcel.num2bl(cl)
                     }
-                    
-                    return font 
+
+                    return font;
                 }
 
-                // 对齐方式转换
+                // 对齐转换
                 var alignmentConvert = function (vt = 'default', ht = 'default', tb = 'default', tr = 'default') { // luckysheet:vt(垂直), ht(水平), tb(换行), tr(旋转)
                     const luckyToExcel = {
                         vertical: {
@@ -286,93 +1498,54 @@
                             default: 0
                         }
                     }
-                    
+
                     let alignment = {
                         vertical: luckyToExcel.vertical[vt],
                         horizontal: luckyToExcel.horizontal[ht],
                         wrapText: luckyToExcel.wrapText[tb],
                         textRotation: luckyToExcel.textRotation[tr]
                     }
-                    return alignment
-                    
-                }
-
-                // 边框转换
-                var borderConvert = function (borderType, style = 1, color = '#000') { // 对应luckysheet的config中borderinfo的的参数
-                    if (!borderType) {
-                        return {}
-                    }
-                    const luckyToExcel = {
-                        type: {
-                            'border-all': 'all',
-                            'border-top': 'top',
-                            'border-right': 'right',
-                            'border-bottom': 'bottom',
-                            'border-left': 'left'
-                        },
-                        style: {
-                            0: 'none',
-                            1: 'thin',
-                            2: 'hair',
-                            3: 'dotted',
-                            4: 'dashDot', // 'Dashed',
-                            5: 'dashDot',
-                            6: 'dashDotDot',
-                            7: 'double',
-                            8: 'medium',
-                            9: 'mediumDashed',
-                            10: 'mediumDashDot',
-                            11: 'mediumDashDotDot',
-                            12: 'slantDashDot',
-                            13: 'thick'
-                        }
-                    }
-                    let template = {style: luckyToExcel.style[style], color: {argb: color.replace('#', '')}}
-                    let border = {}
-                    if (luckyToExcel.type[borderType] === 'all') {
-                        border['top'] = template
-                        border['right'] = template
-                        border['bottom'] = template
-                        border['left'] = template
-                    } else {
-                        border[luckyToExcel.type[borderType]] = template
-                    }
-                    return border
+                    return alignment;
                 }
 
                 // 1.创建工作簿，可以为工作簿添加属性
-                const workbook = new ExcelJS.Workbook()
+                const workbook = new ExcelJS.Workbook();
                 // 2.创建表格，第二个参数可以配置创建什么样的工作表
-                luckysheet.every(function (table) {
-                    if (table.data.length === 0) return true
-                    const worksheet = workbook.addWorksheet(table.name)
+                luckysheetfile.every(function (table) {
+                    if (table.data.length === 0) return true;
+                    const worksheet = workbook.addWorksheet(table.name);
                     // 3.设置单元格合并,设置单元格边框,设置单元格样式,设置值
-                    setStyleAndValue(table.data, worksheet)
-                    setMerge(table.config.merge, worksheet)
-                    setBorder(table.config.borderInfo, worksheet)
-                    return true
+                    setStyleAndValue(table.data, worksheet);
+                    setMerge(table.config.merge, worksheet);
+                    setBorder(table, worksheet);
+                    setImages(table, worksheet, workbook);
+                    return true;
                 })
                 // 4.写入 buffer
                 const buffer = await workbook.xlsx.writeBuffer();
-                console.log(buffer)
-                // return buffer
-                let blob = new Blob([buffer.buffer]);
-                // 创建下载链接
-                var link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'export.xlsx';
-                document.body.appendChild(link);
-                link.click();
-                // 延时释放
-                setTimeout(function() {
-                    URL.revokeObjectURL(blob);
-                    document.body.removeChild(link);
-                })
+                // 5.保存为文件
+                saveFile(buffer, 'export');
+
+                // 5.保存为文件(保存方案二)
+                // let blob = new Blob([buffer.buffer]);
+                // // 创建下载链接
+                // var link = document.createElement('a');
+                // link.href = URL.createObjectURL(blob);
+                // link.download = 'export.xlsx';
+                // document.body.appendChild(link);
+                // link.click();
+                // // 延时释放
+                // setTimeout(function() {
+                //     URL.revokeObjectURL(blob);
+                //     document.body.removeChild(link);
+                // });
             }
 
+            
+ 
             // 导出excel
             exportExcel.addEventListener("click", function (e) {
-                exportLuckysheetToExcel(luckysheet.getluckysheetfile());
+                exportLuckysheetToExcel(luckysheet);
             });
         }
         demoHandler();
