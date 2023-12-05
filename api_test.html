@@ -182,9 +182,22 @@
                 // 合并设置
                 var setMerge = function (luckyMerge = {}, worksheet) {
                     const mergearr = Object.values(luckyMerge);
-                    mergearr.forEach(function (elem) { // elem格式：{r: 0, c: 0, rs: 1, cs: 2}
+                    mergearr.forEach(function (elem) {
+                        const end_border = worksheet.getCell(elem.r + elem.rs, elem.c + elem.cs).border;
+                        const start_border = worksheet.getCell(elem.r + 1, elem.c + 1).border;
+                        const border = {};
+                        if (start_border) {
+                            border.top = start_border.top;
+                            border.left = start_border.left;
+                        }
+                        if (end_border) {
+                            border.bottom = end_border.bottom;
+                            border.right = end_border.right;
+                        }
                         // 按开始行，开始列，结束行，结束列合并（相当于 K10:M12）
                         worksheet.mergeCells(elem.r + 1, elem.c + 1, elem.r + elem.rs, elem.c + elem.cs);
+                        // 需要对合并后的单元格再做边框处理，分别取开始单元格的上边框和左边框，结束单元格的右边框和下边框
+                        worksheet.getCell(elem.r + 1, elem.c + 1, elem.r + elem.rs, elem.c + elem.cs).border = border;
                     });
                 }
 
@@ -300,6 +313,8 @@
                             border['left'] = { style: luckyToExcel.style[info.l.style], color: { argb: lcolor.replace('#', '') } };
                         }
                         worksheet.getCell(row + 1, column + 1).border = border;
+                        // worksheet.getRow(row + 1).getCell(column + 1).border = border;
+                        border = null;
                     }
                 }
 
@@ -1518,8 +1533,8 @@
                     const worksheet = workbook.addWorksheet(table.name);
                     // 3.设置单元格合并,设置单元格边框,设置单元格样式,设置值
                     setStyleAndValue(table.data, worksheet);
-                    setMerge(table.config.merge, worksheet);
                     setBorder(table, worksheet);
+                    setMerge(table.config.merge, worksheet);
                     setImages(table, worksheet, workbook);
                     return true;
                 })
