@@ -13,7 +13,8 @@
     <script src="./dist/plugins/js/plugin.js"></script>
     <script src="./dist/luckysheet.umd.js"></script>
     <script src="./dist/luckyexcel.umd.js"></script>
-    <script src="exceljs/dist/exceljs.min.js"></script>
+    <script src="./exceljs/dist/exceljs.min.js"></script>
+    <script src="./luckyexcel/dist/luckyexcel.umd.js"></script>
     <style>
         .lucky-mask-demo {
             position: absolute;
@@ -50,6 +51,8 @@
         <button id="exportExcel">导出表格</button>
         <button id="setFuncValue">插入多个函数</button>
         <button id="setFuncValue1">插入多个函数</button>
+        <!-- <button id="importExcel">导入Excel</button> -->
+        <input type="file" id="importExcel" name="excelFile" accept="xlsx" />
     </div>
     <div id="luckysheet" class="sheet"></div>
     <script>
@@ -126,6 +129,7 @@
         let insertImage = document.getElementById("insertImage");
         let insertValueForMergedCell = document.getElementById("insertValueForMergedCell");
         let exportExcel = document.getElementById("exportExcel");
+        let importExcel = document.getElementById("importExcel");
         document.getElementById("setFuncValue").addEventListener("click", setFuncValue);
         document.getElementById("setFuncValue1").addEventListener("click", setFuncValue1);
 
@@ -1569,6 +1573,28 @@
             exportLuckysheetToExcel(luckysheet);
         });
 
+        importExcel.addEventListener("change", function(e) {
+            const file = e.target.files[0];
+            console.log(file)
+            // 先确保获取到了xlsx文件file，再使用全局方法window.LuckyExcel转化
+            LuckyExcel.transformExcelToLucky(
+                file, 
+                function(exportJson, luckysheetfile) {
+                    // 获得转化后的表格数据后，使用luckysheet初始化，或者更新已有的luckysheet工作簿
+                    // 注：luckysheet需要引入依赖包和初始化表格容器才可以使用
+                    console.log(exportJson)
+                    luckysheet.create({
+                        container: 'luckysheet', // luckysheet is the container id
+                        data: exportJson.sheets,
+                        title: exportJson.info.name,
+                        userInfo: exportJson.info.name.creator
+                    });
+                },
+                function(err){
+                    logger.error('Import failed. Is your fail a valid xlsx?');
+                }
+            );
+        });
 
         let rowIndex = 1;
         let colIndex = 0;
