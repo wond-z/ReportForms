@@ -51,7 +51,8 @@
         <button id="exportExcel">导出表格</button>
         <button id="setFuncValue">插入多个函数</button>
         <button id="setFuncValue1">插入多个函数</button>
-        <!-- <button id="importExcel">导入Excel</button> -->
+        <button id="mergeCol">合并指定列</button>
+        <button id="importExcel">导入Excel</button>
         <input type="file" id="importExcel" name="excelFile" accept="xlsx" />
     </div>
     <div id="luckysheet" class="sheet"></div>
@@ -130,6 +131,7 @@
         let insertValueForMergedCell = document.getElementById("insertValueForMergedCell");
         let exportExcel = document.getElementById("exportExcel");
         let importExcel = document.getElementById("importExcel");
+        let mergeCol = document.getElementById("mergeCol");
         document.getElementById("setFuncValue").addEventListener("click", setFuncValue);
         document.getElementById("setFuncValue1").addEventListener("click", setFuncValue1);
 
@@ -1656,6 +1658,71 @@
                 a: luckysheet,
             });
         }
+
+        /**
+         * 合并指定列的相同单元格
+         * @param cols       { Array }  指定列索引
+         * @param sheetOrder { Number } 指定sheet页索引（可省缺，省缺默认为当前页）
+         */
+        function setMergeCol(cols, sheetOrder) {
+            let order = null;
+            if (sheetOrder !== undefined) {
+                order = sheetOrder;
+            }
+            // 返回当前或指定工作表的配置
+            let sheetInfo = order === null ? luckysheet.getSheet() : luckysheet.getSheet({order});
+            let { data: sheetData, celldata, config } = sheetInfo;
+            if (!config.merge) config.merge = {};
+            for (let i = 0; i < cols.length; i++) {
+                const colIndex = cols[i];
+                for (let k = 0; k < sheetData.length; k++) {
+                    // 合并信息
+                    let merge = {
+                        r: k,
+                        c: colIndex,
+                        rs: 1,
+                        cs: 1
+                    };
+                    // 当前单元格
+                    let rowIndex = k;
+                    // 当前单元格与下方单元格进行值对比（若下一单元格与当前单元格值相等，则为下一个单元格添加mc属性）
+                    while (
+                        k + 1 < sheetData.length
+                        && sheetData[rowIndex][colIndex] !== null
+                        && sheetData[k + 1][colIndex] !== null
+                        && sheetData[rowIndex][colIndex].m === sheetData[k + 1][colIndex].m
+                    ) {
+                        // 若当前单元格或下一个单元格为已经合并的单元格，则跳出
+                        if (Reflect.has(sheetData[rowIndex][colIndex], 'mc') || Reflect.has(sheetData[k + 1][colIndex], 'mc')) {
+                            break;
+                        }
+                        sheetData[k + 1][colIndex].mc = { r: rowIndex, c: colIndex };
+                        // 实际单元格添加mc属性
+                        // let cell = celldata.find(item => item.r === k + 1 && item.c === colIndex);
+                        // if (cell) {
+                        //     cell.v.mc = { r: rowIndex, c: colIndex };
+                        // }
+                        merge.rs++;
+                        k++;
+                    }
+                    if (merge.rs > 1) {
+                        sheetData[rowIndex][colIndex].mc = merge;
+                        // 实际单元格添加mc属性
+                        // let cell = celldata.find(item => item.r === rowIndex && item.c === colIndex);
+                        // if (cell) {
+                        //     cell.v.mc = merge;
+                        // }
+                        config.merge[rowIndex + '_' + colIndex] = merge;
+                    }
+                }
+            }
+            // 更新工作表配置（主要为上方解析出的sheetData和config中的merge）
+            luckysheet.updataSheet(sheetInfo);
+        }
+        mergeCol.addEventListener('click', function() {
+            const cols = [2, 3];
+            setMergeCol(cols);
+        });
     </script>
 </body>
 
