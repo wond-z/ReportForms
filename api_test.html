@@ -167,7 +167,70 @@
 
         // 插入值
         insertValueForMergedCell.addEventListener("click", function (evt) {
-            luckysheet.setCellValue(1, 1, '我是合并后的单元格值');
+            const type = 1;
+            if (type === 0) {
+                const data = {
+                    m: 'sss',
+                    v: 'sss',
+                    mc: { r: 1, c: 1, rs: 2, cs: 2 }
+                }
+                luckysheet.setCellValue(1, 1, data);
+            } else if (type === 1) {
+                const rangeData = [
+                    [
+                        {
+                            m: "value1",
+                            v: "value1",
+                            mc: { r: 1, c: 1, rs: 2, cs: 2 }
+                        },
+                        {
+                            m: "value3",
+                            v: "value3",
+                            mc: { r: 1, c: 1}
+                        }
+                    ],
+                    [
+                        {
+                            m: "value2",
+                            v: "value2",
+                            mc: { r: 1, c: 1}
+                        },
+                        {
+                            m: "value4",
+                            v: "value4",
+                            mc: { r: 1, c: 1}
+                        }
+                    ]
+                ]
+                luckysheet.setRangeValue(rangeData, {range:"B2:C3"})
+            }
+
+            
+            // 页面配置项
+            let config = luckysheet.getSheet().config;
+            console.log(config)
+            config.borderInfo = Reflect.has(config, 'borderInfo') ? config.borderInfo : [];
+            config.merge = Reflect.has(config, 'merge') ? config.merge : {};
+
+            // 设置合并单元格
+            config.merge['1_1'] = { r: 1, c: 1, rs: 2, cs: 2 };
+
+            // 设置边框
+            const borderInfo = {
+                "rangeType": "range",
+                "borderType": "border-all",
+                "color": "#000",
+                "style": "1",
+                "range": [
+                    {
+                        "row": [ 1, 2],
+                        "column": [1, 2]
+                    }
+                ]
+            };
+            config.borderInfo.push(borderInfo);
+            
+            luckysheet.refresh();
         });
 
         
